@@ -11,11 +11,13 @@ https://plugins.outl.app/registry.json
 
 ## Hosting (Netlify → plugins.outl.app)
 
-The repo root **is** the published site — there's no build step.
-`netlify.toml` serves `registry.json` and `schema/` with a JSON content-type and permissive CORS (so the desktop/mobile webviews can fetch cross-origin), plus `index.html` as the landing page.
+The repo stays a **clean index** — the per-plugin bundles are **not committed**.
+A Netlify build step (`scripts/build.mjs`) reads `registry.json`, downloads each plugin's `plugin.json` + bundle from its GitHub `repository`, and writes them under `/p/<id>/`, which is then served at `https://plugins.outl.app/p/<id>/…`.
+`netlify.toml` serves everything with a JSON content-type and permissive CORS (so the desktop/mobile webviews can fetch cross-origin), plus `index.html` as the landing page.
 
 To deploy: connect this repo to a Netlify site and point the `plugins.outl.app` custom domain at it.
-Every push to `main` publishes.
+Every push to `main` rebuilds (re-fetching the bundles) and publishes.
+Pin the bundles to a tag by setting `OUTL_REF` in the Netlify site env (defaults to `main`).
 
 ## What's here
 
@@ -23,8 +25,11 @@ Every push to `main` publishes.
 |---|---|
 | `registry.json` | The index every client reads (`https://plugins.outl.app/registry.json`). |
 | `schema/registry-v1.json` | JSON Schema the index validates against (CI + editor autocomplete). |
-| `netlify.toml` | Static hosting config — content-type, CORS, cache headers. |
+| `scripts/build.mjs` | Netlify build: downloads each plugin's bundle into `/p/<id>/` (a build artifact, gitignored). |
+| `netlify.toml` | Hosting config — build command, content-type, CORS, cache headers. |
 | `index.html` | Landing page at the domain root. |
+
+> **The bundle host:** a client's "tap to install" downloads `https://plugins.outl.app/p/<id>/plugin.json` + the bundle, validates the manifest, freezes the bundle hash, and installs — the same path a local `outl plugin install <dir>` takes.
 
 ## Adding a plugin
 

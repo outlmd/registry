@@ -1,10 +1,18 @@
 # Netlify config for plugins.outl.app — serves the static plugin registry.
-# No build step: the repo root IS the published site (a JSON index + its
-# schema + a small landing page). The clients fetch /registry.json.
+#
+# The repo stays a clean index (registry.json + schema + landing). The build
+# step materialises the per-plugin bundles under /p/<id>/ by downloading them
+# from each plugin's GitHub source (see scripts/build.mjs) — they are a build
+# artifact, never committed. The published site is the repo root + that /p/.
 
 [build]
   publish = "."
-  command = ""
+  command = "node scripts/build.mjs"
+
+# Pin the bundles to a tag instead of main by setting OUTL_REF in the
+# Netlify site env (e.g. OUTL_REF = "0.7.0"). Defaults to main.
+[build.environment]
+  NODE_VERSION = "20"
 
 # The index every outl client reads. JSON content-type + permissive CORS so
 # the desktop/mobile webviews (and any browser tool) can fetch it cross-origin.
@@ -25,3 +33,13 @@
     Content-Type = "application/json; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=3600"
+
+# Per-plugin bundles under /p/<id>/ — what a client downloads on "tap to
+# install" (plugin.json + index.js + optional config schema). CORS so the
+# desktop/mobile webviews can fetch them. Netlify infers the content-type
+# from the extension (.js / .json).
+[[headers]]
+  for = "/p/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=600"
