@@ -33,8 +33,8 @@ const reg = JSON.parse(await readFile(new URL("registry.json", ROOT), "utf8"));
 
 await rm(new URL("p", ROOT), { recursive: true, force: true });
 
-let count = 0;
-for (const entry of reg.plugins) {
+/** Download one plugin's bundle into p/<id>/. Throws on a fetch failure. */
+async function buildOne(entry) {
   const base = rawBase(entry.repository);
   const dest = new URL(`p/${entry.id}/`, ROOT);
   await mkdir(dest, { recursive: true });
@@ -54,9 +54,28 @@ for (const entry of reg.plugins) {
       console.warn(`  (no config schema for ${entry.id}: ${e.message})`);
     }
   }
-
-  console.log(`  p/${entry.id}/`);
-  count++;
 }
 
-console.log(`built ${count} bundle(s) from avelino/outl@${REF}`);
+// A single plugin whose source isn't reachable (not pushed yet, repo moved,
+// a bad tag) must NOT fail the whole deploy — the index is the primary
+// artifact and the other bundles are still good. Skip + warn instead.
+let ok = 0;
+const skipped = [];
+for (const entry of reg.plugins) {
+  try {
+    await buildOne(entry);
+    console.log(`  p/${entry.id}/`);
+    ok++;
+  } catch (e) {
+    skipped.push(entry.id);
+    console.warn(`  SKIP ${entry.id}: ${e.message}`);
+  }
+}
+
+console.log(`built ${ok}/${reg.plugins.length} bundle(s) from avelino/outl@${REF}`);
+if (skipped.length) {
+  console.warn(
+    `skipped ${skipped.length}: ${skipped.join(", ")} — their source isn't reachable at @${REF} yet`,
+  );
+}
+// Exit 0 even with skips: the index + reachable bundles still deploy.
