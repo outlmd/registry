@@ -1,0 +1,27 @@
+# Netlify config for plugins.outl.app — serves the static plugin registry.
+# No build step: the repo root IS the published site (a JSON index + its
+# schema + a small landing page). The clients fetch /registry.json.
+
+[build]
+  publish = "."
+  command = ""
+
+# The index every outl client reads. JSON content-type + permissive CORS so
+# the desktop/mobile webviews (and any browser tool) can fetch it cross-origin.
+# Short cache: the registry changes rarely but a stale read shouldn't outlive
+# a release by long.
+[[headers]]
+  for = "/registry.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=600, must-revalidate"
+
+# The JSON Schema the index validates against — referenced by `$schema` /
+# `$id` and usable for editor autocomplete. Longer cache (it's versioned).
+[[headers]]
+  for = "/schema/*"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=3600"

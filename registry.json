@@ -1,0 +1,248 @@
+{
+  "$schema": "https://plugins.outl.app/schema/registry-v1.json",
+  "$comment": "Official outl plugin index — the day-zero 'store'. Clients read this file from https://plugins.outl.app/registry.json (served statically via Netlify). No server, no API: a versioned JSON file. Add a plugin via PR; see README.md.",
+  "version": 1,
+  "updated": "2026-06-27",
+  "plugins": [
+    {
+      "id": "app.outl.examples.bars",
+      "name": "Bar Chart",
+      "description": "Turns a ```bars fence of `label: number` lines into a mini bar chart. A demo of a rich content-transformer that renders self-contained HTML in a sandboxed iframe (GUI only).",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/bars",
+      "category": "formatting",
+      "keywords": [
+        "content-transformer:rich"
+      ],
+      "capabilities": [
+        "content-transformer:rich"
+      ],
+      "permissions": [],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.box",
+      "name": "ASCII Box",
+      "description": "Wraps the body of a ```box fence in a drawn ASCII box. A tiny demo of a text content-transformer that renders on every client, TUI included.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/box",
+      "category": "formatting",
+      "keywords": [
+        "content-transformer:text"
+      ],
+      "capabilities": [
+        "content-transformer:text"
+      ],
+      "permissions": [],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.confetti",
+      "name": "Confetti on Done",
+      "description": "Throws confetti every time you mark a block DONE. A tiny visual demo of the op-hook + ui.effect surface.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/confetti",
+      "category": "fun",
+      "keywords": [
+        "op-hook",
+        "ui-render"
+      ],
+      "capabilities": [
+        "op-hook",
+        "ui-render"
+      ],
+      "permissions": [
+        "read-op-log"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.echo-sync",
+      "name": "Echo Sync",
+      "description": "Educational sync-transport skeleton: shows the push/pull contract a real transport implements, with no backend wired in.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/echo-sync",
+      "category": "sync",
+      "keywords": [
+        "sync-transport"
+      ],
+      "capabilities": [
+        "sync-transport"
+      ],
+      "permissions": [],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.greeter",
+      "name": "Greeter",
+      "description": "A `greet` slash command that toasts a friendly hello using a user-configurable name. A minimal config-schema demo.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/greeter",
+      "category": "fun",
+      "keywords": [
+        "config-schema",
+        "slash-command"
+      ],
+      "capabilities": [
+        "config-schema",
+        "slash-command"
+      ],
+      "permissions": [],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.inspire",
+      "name": "Inspire",
+      "description": "Fetches a random quote from a public HTTP API and shows it as a notification — the canonical template for any external integration from a plugin.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/inspire",
+      "category": "fun",
+      "keywords": [
+        "slash-command"
+      ],
+      "capabilities": [
+        "slash-command"
+      ],
+      "permissions": [
+        "network:api.quotable.io"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.page-pulse",
+      "name": "Page Pulse",
+      "description": "Counts blocks, open TODOs, and DONEs in the workspace at a glance. A tiny demo of the toolbar-button capability.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/page-pulse",
+      "category": "productivity",
+      "keywords": [
+        "slash-command",
+        "toolbar-button"
+      ],
+      "capabilities": [
+        "slash-command",
+        "toolbar-button"
+      ],
+      "permissions": [
+        "read-page"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.random-task",
+      "name": "Random Task",
+      "description": "Picks one open TODO at random and tells you to focus on it. A tiny demo of the keybinding capability.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/random-task",
+      "category": "productivity",
+      "keywords": [
+        "slash-command",
+        "keybinding"
+      ],
+      "capabilities": [
+        "slash-command",
+        "keybinding"
+      ],
+      "permissions": [
+        "read-page"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.todo-archiver",
+      "name": "TODO Archiver",
+      "description": "Moves DONE blocks to an archive page on demand, keeping working pages focused on what's still open.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/todo-archiver",
+      "category": "productivity",
+      "keywords": [
+        "op-hook",
+        "slash-command",
+        "keybinding",
+        "config-schema"
+      ],
+      "capabilities": [
+        "op-hook",
+        "slash-command",
+        "keybinding",
+        "config-schema"
+      ],
+      "permissions": [
+        "read-page",
+        "write-page",
+        "submit-op",
+        "storage:local"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.word-count",
+      "name": "Word Count",
+      "description": "Counts the words in a block as you type and toasts when it crosses a milestone (50/100/250/500). A minimal op-hook demo.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/word-count",
+      "category": "productivity",
+      "keywords": [
+        "op-hook"
+      ],
+      "capabilities": [
+        "op-hook"
+      ],
+      "permissions": [
+        "read-op-log"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "id": "app.outl.examples.workspace-stats",
+      "name": "Workspace Stats",
+      "description": "A `stats` slash command that counts blocks, TODOs, DONEs and pages across the workspace and toasts the summary. A read-only slash-command demo.",
+      "author": "Avelino",
+      "repository": "github:avelino/outl/examples/workspace-stats",
+      "category": "productivity",
+      "keywords": [
+        "slash-command"
+      ],
+      "capabilities": [
+        "slash-command"
+      ],
+      "permissions": [
+        "read-page"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ]
+    }
+  ]
+}

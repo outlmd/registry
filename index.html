@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>outl plugin registry</title>
+    <meta
+      name="description"
+      content="The plugin index for outl — a local-first outliner. Served as a static JSON file."
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fg: #1a1a2e;
+        --dim: #6b7280;
+        --accent: #6c5ce7;
+        --bg: #fbfbfe;
+        --code: #f0f0f6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #e7e7ef;
+          --dim: #9aa0ac;
+          --bg: #14141c;
+          --code: #20202c;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+      main { max-width: 38rem; }
+      h1 { font-size: 1.7rem; margin: 0 0 0.25rem; }
+      .tag { color: var(--accent); font-weight: 600; }
+      p { color: var(--dim); }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code, pre {
+        background: var(--code);
+        border-radius: 6px;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.9em;
+      }
+      code { padding: 0.1em 0.4em; }
+      pre { padding: 0.9rem 1rem; overflow-x: auto; }
+      ul { padding-left: 1.1rem; }
+      footer { margin-top: 2rem; color: var(--dim); font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1><span class="tag">outl</span> plugin registry</h1>
+      <p>
+        The day-zero "store" for
+        <a href="https://github.com/avelino/outl">outl</a> plugins — a single
+        versioned JSON index, no server, no API.
+      </p>
+
+      <p>Clients read the index from this domain:</p>
+      <pre><code>https://plugins.outl.app/registry.json</code></pre>
+
+      <p>Install a plugin from its GitHub source:</p>
+      <pre><code>outl plugin install github:user/repo
+outl plugin install github:user/repo#v1.2.0</code></pre>
+
+      <ul>
+        <li><a href="/registry.json">registry.json</a> — the index</li>
+        <li>
+          <a href="/schema/registry-v1.json">schema/registry-v1.json</a> — the
+          JSON Schema it validates against
+        </li>
+        <li>
+          <a href="https://github.com/outlmd/registry"
+            >github.com/outlmd/registry</a
+          >
+          — open a PR to add yours
+        </li>
+      </ul>
+
+      <footer>Served statically from outlmd/registry via Netlify.</footer>
+    </main>
+  </body>
+</html>
